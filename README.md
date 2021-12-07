@@ -21,7 +21,8 @@
     npm install -D tslib @types/node
     ```
 
-4. Make file 2021_day_1.ts.    
+4. Make folder `2021_day_<DAY>`.
+5. Make file `2021_day_<DAY>.ts` in new folder. And setup your `input.txt` file as well. Lib contains default file read functionality.
 5. Run
 
     ```
