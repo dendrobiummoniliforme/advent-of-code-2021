@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { data } from "../lib";
 
 interface cohort {
@@ -56,6 +57,8 @@ const newState = (state: cohort, veteranGroup: number, numberOfGroups: number) =
     return temp;
 }
 
+var totalPopulation: number[] = [];
+
 /**
  * spawn takes a cohort and spawns new fish until it reaches the final day given for spawning.
  * @param currentState a currentState cohort.
@@ -65,14 +68,19 @@ const newState = (state: cohort, veteranGroup: number, numberOfGroups: number) =
 const spawn = (currentState: cohort, days: number) => {
     let prevState: cohort = currentState;
     if (days === 0) {
-        console.log(prevState);
+        totalPopulation = [0];
         return prevState;
     }
 
     if (days > 0) {
+        console.log(currentState,`\n.\n.\n.\nv\n`);
         currentState = newState(prevState, 6, 8);
         days--
         spawn(currentState, days);
+    }
+
+    if (prevState.population != undefined) {
+        totalPopulation.push(prevState.population);
     }
     return prevState;
 }
@@ -89,4 +97,8 @@ initialState.population = initialState.bio.reduce((prev, curr) => {
 
 // Change the second param to answer part A or Part B.
 // This is performant compared with my first attempt at answering.
-spawn(initialState, 256);
+spawn(initialState, 1000);
+
+console.log(totalPopulation);
+
+fs.writeFileSync(`${__dirname}/output.txt`, totalPopulation.toString());

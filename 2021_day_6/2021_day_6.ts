@@ -62,6 +62,7 @@ const simulate = (arr: string[], days: number = 2) => {
         console.log(arr.length - prevArr.length);
         days--
         lanternfish = arr;
+        
         // Simulate again.
         simulate(lanternfish, days);
     }
